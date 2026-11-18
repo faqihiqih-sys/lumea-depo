@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMEA — Container Depot &amp; Maritime Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+<link rel="manifest" href="/site.webmanifest">
+<style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0B0E11;
+      color: #F4F6F8;
+    }
+    .preloader {
+      position: fixed;
+      inset: 0;
+      background: #0B0E11;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem 5vw;
+      pointer-events: none;
+    }
+    .preloader-bottom {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .floating-preview {
+      position: fixed;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM MAGNETIC CURSOR -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true">
+    <span id="cursor-label"></span>
+  </div>
+
+  <!-- FLOATING PREVIEW CARD FOR SECTION 04 -->
+  <div class="floating-preview" id="floating-preview" aria-hidden="true">
+    <img id="floating-preview-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="">
+    <div class="floating-badge">EXPLORE</div>
+  </div>
+
+  <!-- 00. PRELOADER -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <canvas id="preloader-canvas"></canvas>
+    <div class="preloader-bottom">
+      <span class="preloader-side">LUMEA</span>
+      <span class="preloader-num" id="preloader-counter">000</span>
+      <span class="preloader-side">CONTAINER DEPOT</span>
+    </div>
+  </div>
+
+  <!-- HEADER / NAVBAR (AUTO-HIDE ON SCROLL DOWN) -->
+  <header class="site-header" id="site-header">
+    <a href="#" class="brand-logo" aria-label="Beranda LUMEA">
+      <img src="src/assets/lumea.png" alt="Logo LUMEA" />
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="#services">Layanan</a>
+      <a href="#anatomy">Alur Kerja</a>
+      <a href="#units">Tipe Unit</a>
+      <a href="#story">Profil Depo</a>
+      <a href="#journal">Jurnal</a>
+    </nav>
+    <a href="#footer" class="nav-cta">Hubungi Kami</a>
+    <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+      MENU
+    </button>
+  </header>
+
+  <!-- MOBILE FULLSCREEN MENU OVERLAY -->
+  <div class="mobile-menu-overlay" id="mobile-menu" aria-hidden="true">
+    <nav class="mobile-menu-nav" aria-label="Navigasi Mobile">
+      <a href="#services">Layanan</a>
+      <a href="#anatomy">Alur Kerja</a>
+      <a href="#units">Tipe Unit</a>
+      <a href="#story">Profil Depo</a>
+      <a href="#journal">Jurnal</a>
+      <a href="#footer" class="mobile-menu-cta">Hubungi Kami</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- 01. HERO SECTION -->
+    <section class="hero-section" id="hero-section">
+      <div class="hero-media-wrap">
+        <img class="hero-img-sharp" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1920&q=80" alt="Container Depot Yard">
+        <img class="hero-img-blur" id="hero-img-blur" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1920&q=80" alt="" aria-hidden="true">
+        <div class="hero-vignette"></div>
+      </div>
+
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+      <div class="hero-content" id="hero-content">
+        <p class="hero-eyebrow hero-anim">Presisi operasional untuk kelancaran rantai pasok global.</p>
+        <h1 class="hero-title hero-anim">
+          <span class="title-roman">LUMEA</span>
+          <span class="title-script">Container Depot</span>
+        </h1>
+        <p class="hero-sub hero-anim">Storage · Washing · IICL Repair</p>
+      </div>
+    </section>
+
+    <!-- 02. MANIFESTO (LIGHT SECTION WITH WORD REVEAL & INLINE BADGES) -->
+    <section class="manifesto-section theme-cream" id="manifesto">
+      <div class="container">
+        <div class="top-meta">
+          <span>(01) KOMITMEN OPERASIONAL</span>
+          <span>STANDAR MARITIM INTERNASIONAL</span>
+        </div>
+
+        <p class="manifesto-statement" id="manifesto-text">
+          Kami menjaga kesiapan setiap armada peti kemas
+          <span class="inline-pill"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=300&q=80" alt=""></span>
+          dari penyimpanan terstruktur hingga pencucian bertekanan tinggi.
+          <span class="inline-pill"><img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=300&q=80" alt=""></span>
+          Presisi, aman, <em class="accent-rust">tersertifikasi</em>.
+          Kesiapan unit yang dapat diandalkan
+          <span class="inline-pill"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=300&q=80" alt=""></span>
+          setiap kali jadwal pelayaran tiba.
+        </p>
+
+        <div class="manifesto-footer">
+          <div class="vertical-bars" aria-hidden="true">
+            <span><i></i></span>
+            <span><i></i></span>
+            <span><i></i></span>
+          </div>
+          <p class="manifesto-note">
+            Dari penyimpanan peti kemas kosong (<em>empty container storage</em>), sanitasi food-grade, hingga restorasi baja corten berstandar IICL-6 — setiap unit ditangani oleh teknisi berpengalaman dengan sistem pelacakan real-time.
+          </p>
+          <a href="#anatomy" class="text-arrow-link">BACA ALUR KERJA ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. PINNED HORIZONTAL GALLERY ((02) LAYANAN UTAMA) -->
+    <section class="pinned-gallery-section theme-dark" id="services">
+      <div class="pinned-layout">
+        <!-- Left Fixed Info -->
+        <div class="pinned-sidebar">
+          <div>
+            <span class="meta-label">(02) LAYANAN UTAMA</span>
+            <h2>Lima solusi,<br><em>terintegrasi</em></h2>
+            <p class="sidebar-desc">
+              Setiap layanan dirancang untuk mempercepat turnaround time armada Anda. Arahkan kursor pada unit untuk melihat cakupan teknis.
+            </p>
+            <div class="scroll-cue">SCROLL <span>→</span></div>
+          </div>
+
+          <div class="pinned-progress-wrap">
+            <span id="pinned-counter">01 / 05</span>
+            <div class="pinned-line"><div class="pinned-line-fill" id="pinned-line-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- Right Horizontal Track -->
+        <div class="pinned-track-viewport">
+          <div class="pinned-track" id="pinned-track">
+            <!-- Card 01 -->
+            <article class="service-card" data-cursor="DETAIL">
+              <div class="card-header">
+                <span>NO. 01</span>
+                <span>YARD MANAGEMENT</span>
+              </div>
+              <div class="card-visual">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80" alt="Empty Container Storage">
+                <ul class="card-pills">
+                  <li>20ft &amp; 40ft HC</li>
+                  <li>Gate Digital EIR</li>
+                  <li>CCTV 24/7</li>
+                </ul>
+              </div>
+              <h3>Empty Storage</h3>
+              <p class="card-sub">penyimpanan peti kemas kosong</p>
+              <p class="card-desc">Penataan blok sistematis dengan armada Reach Stacker modern untuk bongkar muat cepat.</p>
+            </article>
+
+            <!-- Card 02 -->
+            <article class="service-card" data-cursor="DETAIL">
+              <div class="card-header">
+                <span>NO. 02</span>
+                <span>SANITATION &amp; WASH</span>
+              </div>
+              <div class="card-visual">
+                <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80" alt="Container Washing">
+                <ul class="card-pills">
+                  <li>High-Pressure Jet</li>
+                  <li>Chemical Clean</li>
+                  <li>Food-Grade</li>
+                </ul>
+              </div>
+              <h3>Container Washing</h3>
+              <p class="card-sub">pencucian peti kemas</p>
+              <p class="card-desc">Pembersihan residu kargo, bau, dan karat ringan menggunakan tekanan tinggi serta uap panas.</p>
+            </article>
+
+            <!-- Card 03 -->
+            <article class="service-card" data-cursor="DETAIL">
+              <div class="card-header">
+                <span>NO. 03</span>
+                <span>IICL-6 STANDARD</span>
+              </div>
+              <div class="card-visual">
+                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=900&q=80" alt="Container Repair">
+                <ul class="card-pills">
+                  <li>Corten Welding</li>
+                  <li>Door Seal &amp; Floor</li>
+                  <li>Light Test</li>
+                </ul>
+              </div>
+              <h3>Structural Repair</h3>
+              <p class="card-sub">perbaikan peti kemas</p>
+              <p class="card-desc">Restorasi panel penyok, pengelasan struktur, penggantian lantai plywood, dan karet pintu.</p>
+            </article>
+
+            <!-- Card 04 -->
+            <article class="service-card" data-cursor="DETAIL">
+              <div class="card-header">
+                <span>NO. 04</span>
+                <span>COLD CHAIN SUPPORT</span>
+              </div>
+              <div class="card-visual">
+                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=900&q=80" alt="Reefer PTI">
+                <ul class="card-pills">
+                  <li>Pre-Trip Inspection</li>
+                  <li>Kalibrasi Suhu</li>
+                  <li>Reefer Plugs</li>
+                </ul>
+              </div>
+              <h3>Reefer &amp; PTI</h3>
+              <p class="card-sub">inspeksi unit berpendingin</p>
+              <p class="card-desc">Pengecekan kelistrikan dan kompresor sebelum pengiriman kargo beku maupun farmasi.</p>
+            </article>
+
+            <!-- Card 05 -->
+            <article class="service-card" data-cursor="DETAIL">
+              <div class="card-header">
+                <span>NO. 05</span>
+                <span>SURVEY &amp; CUSTOM</span>
+              </div>
+              <div class="card-visual">
+                <img src="https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=900&q=80" alt="Survey & Modification">
+                <ul class="card-pills">
+                  <li>Laporan EIR</li>
+                  <li>Modifikasi Unit</li>
+                  <li>Sertifikasi CSC</li>
+                </ul>
+              </div>
+              <h3>Survey &amp; Modifikasi</h3>
+              <p class="card-sub">inspeksi &amp; fabrikasi khusus</p>
+              <p class="card-desc">Penerbitan Equipment Interchange Receipt akurat serta konversi peti kemas sesuai kebutuhan.</p>
+            </article>
+
+            <!-- End Cap CTA -->
+            <div class="track-end-cta">
+              <a href="#units">
+                Lihat semua<br><em>spesifikasi</em> <span>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. STICKY ORBITAL ANATOMY ((03) ANATOMI OPERASIONAL) -->
+    <section class="orbital-section theme-dark" id="anatomy">
+      <div class="orbital-sticky">
+        <!-- Crossfading Backgrounds -->
+        <div class="orbital-bg-stack">
+          <img class="orbital-bg active" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80" alt="">
+          <img class="orbital-bg" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1920&q=80" alt="">
+          <img class="orbital-bg" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1920&q=80" alt="">
+          <div class="orbital-overlay"></div>
+        </div>
+
+        <!-- Top Bar -->
+        <div class="orbital-top">
+          <span class="meta-label">(03) ANATOMI OPERASIONAL</span>
+          <ol class="orbital-tabs" id="orbital-tabs">
+            <li class="active" data-step="0">GATE-IN SURVEY</li>
+            <li data-step="1">WASH &amp; REPAIR</li>
+            <li data-step="2">READY STACK</li>
+          </ol>
+        </div>
+
+        <!-- Center Concentric Rings & Node Labels -->
+        <div class="orbital-center">
+          <div class="ring ring-outer">
+            <span class="orbit-dot" id="orbit-dot"></span>
+          </div>
+          <div class="ring ring-mid"></div>
+          <div class="ring ring-inner"></div>
+          <div class="ring-core"></div>
+
+          <span class="node-tag node-1" id="node-tag-1">EIR Digital</span>
+          <span class="node-tag node-2" id="node-tag-2">Cek Fisik</span>
+          <span class="node-tag node-3" id="node-tag-3">Estimasi Biaya</span>
+        </div>
+
+        <!-- Bottom Left Step Description -->
+        <div class="orbital-bottom">
+          <div class="orbital-num" id="orbital-num">01</div>
+          <h2 id="orbital-title">Gate-In &amp; Survey</h2>
+          <span class="orbital-sub" id="orbital-sub">TAHAP INSPEKSI AWAL</span>
+          <p id="orbital-desc">Setiap unit yang tiba diperiksa kondisinya secara menyeluruh oleh surveyor bersertifikat dan dicatat ke dalam laporan EIR digital.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. HOVER-PREVIEW UNIT CATEGORIES ((04) SPESIFIKASI ARMADA) -->
+    <section class="categories-section theme-cream" id="units">
+      <div class="container">
+        <div class="categories-header">
+          <div>
+            <span class="meta-label">(04) SPESIFIKASI ARMADA</span>
+            <h2>Jenis unit yang <em class="accent-rust">ditangani</em></h2>
+          </div>
+          <p class="header-right-desc">
+            Fasilitas yard dan bengkel kami dilengkapi peralatan berat untuk menangani seluruh dimensi dan tipe peti kemas standar pelayaran internasional.
+          </p>
+        </div>
+
+        <ul class="category-list" id="category-list">
+          <li class="category-row" data-img="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80">
+            <span class="cat-idx">01</span>
+            <div class="cat-thumb">
+              <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80" alt="Dry Standard">
+            </div>
+            <div class="cat-info">
+              <span class="cat-name">Dry Standard</span>
+              <span class="cat-sub-mobile">GENERAL CARGO</span>
+            </div>
+            <span class="cat-mid">20' GP &amp; 40' GP baja corten</span>
+            <span class="cat-count">GENERAL CARGO</span>
+          </li>
+          <li class="category-row" data-img="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=800&q=80">
+            <span class="cat-idx">02</span>
+            <div class="cat-thumb">
+              <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=400&q=80" alt="High Cube">
+            </div>
+            <div class="cat-info">
+              <span class="cat-name">High Cube</span>
+              <span class="cat-sub-mobile">HIGH VOLUME</span>
+            </div>
+            <span class="cat-mid">40' HC &amp; 45' HC kapasitas ekstra</span>
+            <span class="cat-count">HIGH VOLUME</span>
+          </li>
+          <li class="category-row" data-img="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80">
+            <span class="cat-idx">03</span>
+            <div class="cat-thumb">
+              <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80" alt="Reefer Unit">
+            </div>
+            <div class="cat-info">
+              <span class="cat-name">Reefer Unit</span>
+              <span class="cat-sub-mobile">COLD CHAIN</span>
+            </div>
+            <span class="cat-mid">Pendingin aktif + layanan PTI</span>
+            <span class="cat-count">COLD CHAIN</span>
+          </li>
+          <li class="category-row" data-img="https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=800&q=80">
+            <span class="cat-idx">04</span>
+            <div class="cat-thumb">
+              <img src="https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=400&q=80" alt="Open Top & Flat Rack">
+            </div>
+            <div class="cat-info">
+              <span class="cat-name">Open Top &amp; Flat Rack</span>
+              <span class="cat-sub-mobile">HEAVY DUTY</span>
+            </div>
+            <span class="cat-mid">Kargo proyek &amp; alat berat</span>
+            <span class="cat-count">HEAVY DUTY</span>
+          </li>
+          <li class="category-row" data-img="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=800&q=80">
+            <span class="cat-idx">05</span>
+            <div class="cat-thumb">
+              <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=400&q=80" alt="Custom & Modified">
+            </div>
+            <div class="cat-info">
+              <span class="cat-name">Custom &amp; Modified</span>
+              <span class="cat-sub-mobile">BESPOKE</span>
+            </div>
+            <span class="cat-mid">Fabrikasi kantor, gudang, &amp; booth</span>
+            <span class="cat-count">BESPOKE</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06. EXPANDING PILL MASK + OUR STORY + COUNT-UP METRICS -->
+    <section class="story-expand-section theme-dark" id="story">
+      <div class="expand-stage" id="expand-stage">
+        <div class="expand-frame" id="expand-frame">
+          <img class="expand-bg-img" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1920&q=80" alt="Fasilitas Depo LUMEA">
+          <div class="expand-dark-tint" id="expand-tint"></div>
+          <div class="expand-center-copy" id="expand-copy">
+            <span class="meta-label">(05) PROFIL DEPO</span>
+            <h2>Depo terpadu yang bekerja mengikuti ritme pelayaran</h2>
+            <p>
+              LUMEA berdiri dengan satu fokus utama: menjaga keandalan sirkulasi peti kemas kosong di pelabuhan. Setiap proses penyimpanan, pencucian, dan perbaikan dijalankan dengan ketelitian tinggi tanpa hambatan antrean.
+            </p>
+          </div>
+        </div>
+
+        <span class="side-word side-left" id="side-left">Presisi</span>
+        <span class="side-word side-right" id="side-right"><em>di Depo</em></span>
+      </div>
+
+      <!-- Metrics Bar -->
+      <div class="container metrics-section">
+        <p class="metrics-headline">
+          Terstruktur dalam sistem. <em class="accent-rust">Cepat</em> dalam eksekusi.
+        </p>
+        <ul class="metrics-grid" id="metrics-grid">
+          <li>
+            <div class="metric-val"><span class="count-num" data-target="12000">0</span><small>TEUs</small></div>
+            <span class="metric-label">KAPASITAS YARD PENYIMPANAN</span>
+          </li>
+          <li>
+            <div class="metric-val"><span class="count-num" data-target="24">0</span><small>/7</small></div>
+            <span class="metric-label">OPERASIONAL GATE-IN &amp; OUT</span>
+          </li>
+          <li>
+            <div class="metric-val"><span class="count-num" data-target="15">0</span><small>mnt</small></div>
+            <span class="metric-label">RATA-RATA TURNAROUND TRUK</span>
+          </li>
+          <li>
+            <div class="metric-val"><span class="count-num" data-target="300">0</span><small>+</small></div>
+            <span class="metric-label">KAPASITAS REPAIR PER BULAN</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 07. INTERACTIVE SERVICE FINDER WITH DYNAMIC WEATHER CANVAS -->
+    <section class="finder-section theme-dark" id="finder">
+      <canvas id="finder-canvas" aria-hidden="true"></canvas>
+
+      <div class="container finder-grid">
+        <div class="finder-left">
+          <span class="meta-label">(06) PENCARI LAYANAN</span>
+          <h2>Apa kebutuhan <em>armada</em> Anda hari ini?</h2>
+
+          <div class="finder-list" role="radiogroup">
+            <button class="finder-option active" data-idx="0">
+              <span class="radio-dot"></span>
+              <span class="opt-name">Penyimpanan Kosong</span>
+              <span class="opt-tag">STOK UNIT TERSTRUKTUR</span>
+            </button>
+            <button class="finder-option" data-idx="1">
+              <span class="radio-dot"></span>
+              <span class="opt-name">Pencucian Kontainer</span>
+              <span class="opt-tag">FOOD-GRADE &amp; RESIDU KIMIA</span>
+            </button>
+            <button class="finder-option" data-idx="2">
+              <span class="radio-dot"></span>
+              <span class="opt-name">Perbaikan IICL-6</span>
+              <span class="opt-tag">RESTORASI STRUKTUR &amp; PINTU</span>
+            </button>
+            <button class="finder-option" data-idx="3">
+              <span class="radio-dot"></span>
+              <span class="opt-name">Inspeksi Reefer PTI</span>
+              <span class="opt-tag">KALIBRASI SUHU &amp; KELISTRIKAN</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="finder-right" id="finder-card">
+          <div class="finder-photo">
+            <img id="finder-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80" alt="Layanan Terpilih">
+          </div>
+          <span class="finder-match" id="finder-match">REKOMENDASI · LAYANAN 01</span>
+          <h3 id="finder-title">Empty Container Storage</h3>
+          <p id="finder-desc">Penataan peti kemas kosong di blok terkomputerisasi dengan pemantauan inventaris real-time serta layanan lift-on/lift-off cepat.</p>
+          <a href="#footer" class="pill-btn-outline">AJUKAN PENAWARAN</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. STAGGERED 3-COLUMN JOURNAL ((07) WAWASAN & BERITA) -->
+    <section class="journal-section theme-cream" id="journal">
+      <div class="container">
+        <div class="journal-header">
+          <div>
+            <span class="meta-label">(07) WAWASAN &amp; BERITA</span>
+            <h2>Catatan dari <em class="accent-rust">lapangan</em></h2>
+          </div>
+          <a href="#footer" class="text-arrow-link">SEMUA ARTIKEL →</a>
+        </div>
+
+        <div class="journal-grid">
+          <article class="journal-card" data-cursor="BACA">
+            <div class="journal-thumb">
+              <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=800&q=80" alt="">
+            </div>
+            <div class="journal-meta"><span>TEKNIS</span><span>OKT 2026</span></div>
+            <h3>Mengapa standar perbaikan IICL-6 krusial bagi keamanan kargo ekspor</h3>
+          </article>
+
+          <article class="journal-card journal-card-tall" data-cursor="BACA">
+            <div class="journal-thumb">
+              <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80" alt="">
+            </div>
+            <div class="journal-meta"><span>SANITASI</span><span>SEP 2026</span></div>
+            <h3>Prosedur pencucian peti kemas food-grade sebelum pemuatan komoditas</h3>
+          </article>
+
+          <article class="journal-card" data-cursor="BACA">
+            <div class="journal-thumb">
+              <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="">
+            </div>
+            <div class="journal-meta"><span>OPERASIONAL</span><span>AGU 2026</span></div>
+            <h3>Optimalisasi tata letak blok depo untuk menekan dwelling time truk trailer</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 09. KINETIC MARQUEE + CIRCULAR CTA + FOOTER -->
+  <footer class="site-footer theme-dark" id="footer">
+    <!-- Marquee -->
+    <div class="marquee-band" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Empty Container Storage</span><span class="star">✦</span>
+        <span>High-Pressure Washing</span><span class="star">✦</span>
+        <span>IICL-6 Certified Repair</span><span class="star">✦</span>
+        <span>Empty Container Storage</span><span class="star">✦</span>
+        <span>High-Pressure Washing</span><span class="star">✦</span>
+        <span>IICL-6 Certified Repair</span><span class="star">✦</span>
+      </div>
+    </div>
+
+    <!-- Consultation CTA Block with Circular Button -->
+    <div class="container cta-block">
+      <div class="cta-photo">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80" alt="LUMEA Container Operations">
+      </div>
+      <div class="cta-copy">
+        <span class="meta-label">PAKET LAYANAN TERPADU</span>
+        <h2>Tiga solusi, <em>satu pintu</em> operasional</h2>
+        <p>
+          Konsultasikan kebutuhan alokasi ruang penyimpanan kosong, jadwal pencucian armada, atau kontrak perbaikan rutin bersama tim operasional kami.
+        </p>
+        <a href="mailto:faqihiqih@gmail.com" class="circle-cta-btn">
+          <span>MINTA<br>PENAWARAN</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Directory & Giant Wordmark -->
+    <div class="container footer-directory">
+      <div class="footer-cols">
+        <div class="footer-newsletter">
+          <span class="meta-label">KONSULTASI CEPAT</span>
+          <form class="email-form" id="email-form">
+            <input type="email" placeholder="Email perusahaan Anda" required>
+            <button type="submit" aria-label="Kirim">→</button>
+          </form>
+          <span class="form-feedback" id="form-feedback"></span>
+        </div>
+
+        <div class="footer-nav-col">
+          <span class="meta-label">NAVIGASI</span>
+          <a href="#services">Layanan Utama</a>
+          <a href="#anatomy">Alur Operasional</a>
+          <a href="#units">Spesifikasi Unit</a>
+          <a href="#story">Profil Depo</a>
+          <a href="#journal">Jurnal</a>
+        </div>
+
+        <div class="footer-nav-col">
+          <span class="meta-label">KONTAK</span>
+          <a href="mailto:faqihiqih@gmail.com">faqihiqih@gmail.com</a>
+          <a href="https://wa.me/6285930411943" target="_blank" rel="noopener">WhatsApp: 0859-3041-1943</a>
+          <a href="tel:+6289609129926">Telp: 0896-0912-9926</a>
+          <a href="#">Jakarta, Indonesia</a>
+        </div>
+      </div>
+
+      <div class="giant-wordmark">FQH STUDIO</div>
+
+      <div class="footer-legal">
+        <span>© 2026 FQH STUDIO.</span>
+        <span>STORAGE · WASHING · IICL REPAIR</span>
+        <button type="button" class="back-to-top" id="back-to-top">BACK TO TOP ↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
