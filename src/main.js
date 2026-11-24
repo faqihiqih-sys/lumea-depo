@@ -685,6 +685,59 @@ gsap.utils.toArray('.journal-card').forEach((card, i) => {
     ease: 'power3.out',
     scrollTrigger: {
       trigger: card,
+
+      // 15. GIANT FOOTER WORDMARK ANIMATION
+const giantWordmark = document.querySelector('.giant-wordmark');
+if (giantWordmark) {
+  const rawText = giantWordmark.textContent.trim();
+  giantWordmark.setAttribute('aria-label', rawText);
+  giantWordmark.innerHTML = rawText
+    .split('')
+    .map((char) =>
+      char === ' '
+        ? '<span class="gw-space">&nbsp;</span>'
+        : `<span class="gw-char" aria-hidden="true">${char}</span>`
+    )
+    .join('');
+
+  const gwChars = giantWordmark.querySelectorAll('.gw-char');
+
+  gsap.fromTo(
+    gwChars,
+    { yPercent: 115, opacity: 0 },
+    {
+      yPercent: 0,
+      opacity: 1,
+      duration: 1.1,
+      stagger: 0.045,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.footer-directory',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
+    }
+  );
+
+  gwChars.forEach((char) => {
+    char.addEventListener('mouseenter', () => {
+      gsap.to(char, {
+        y: -12,
+        color: '#B8E600',
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+    char.addEventListener('mouseleave', () => {
+      gsap.to(char, {
+        y: 0,
+        color: '',
+        duration: 0.45,
+        ease: 'power2.out',
+      });
+    });
+  });
+}
       start: 'top 85%',
       toggleActions: 'play none none reverse',
     },
