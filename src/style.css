@@ -1639,3 +1639,33 @@ h2 em {
 
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* GIANT FOOTER WORDMARK */
+.giant-wordmark {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+  overflow: hidden;
+  margin: 3.5rem 0 2rem;
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 12.5vw, 13.5rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: rgba(244, 246, 248, 0.14);
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+.giant-wordmark .gw-char,
+.giant-wordmark .gw-space {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.giant-wordmark .gw-space {
+  width: 0.28em;
+}
