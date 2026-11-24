@@ -447,6 +447,7 @@ if (pinnedSection && pinnedTrack) {
     });
   }
 }
+
 // 9. STICKY ORBITAL ANATOMY (SECTION 04)
 const orbitalStages = [
   {
@@ -685,8 +686,13 @@ gsap.utils.toArray('.journal-card').forEach((card, i) => {
     ease: 'power3.out',
     scrollTrigger: {
       trigger: card,
+      start: 'top 85%',
+      toggleActions: 'play none none reverse',
+    },
+  });
+});
 
-      // 15. GIANT FOOTER WORDMARK ANIMATION
+// 15. GIANT FOOTER WORDMARK ANIMATION
 const giantWordmark = document.querySelector('.giant-wordmark');
 if (giantWordmark) {
   const rawText = giantWordmark.textContent.trim();
@@ -738,8 +744,3 @@ if (giantWordmark) {
     });
   });
 }
-      start: 'top 85%',
-      toggleActions: 'play none none reverse',
-    },
-  });
-});
